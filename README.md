@@ -5,4 +5,4 @@ Rotafocus Websitesi
 
 - **Telefon:** 905071272253
 - **WhatsApp:** 905071272253
-- **Email:** rotafocus@rotafocus.com
+- **Email:** info@rotafocus.com
