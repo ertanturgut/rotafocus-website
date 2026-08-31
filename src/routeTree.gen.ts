@@ -12,7 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RotaTakvimRouteImport } from './routes/rota-takvim'
-import { Route as ApiGithubPushRouteImport } from './routes/api/github-push'
+import { Route as SupportRouteImport } from './routes/support'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,9 +29,9 @@ const RotaTakvimRoute = RotaTakvimRouteImport.update({
   path: '/rota-takvim',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiGithubPushRoute = ApiGithubPushRouteImport.update({
-  id: '/api/github-push',
-  path: '/api/github-push',
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -39,34 +39,34 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
   '/rota-takvim': typeof RotaTakvimRoute
-  '/api/github-push': typeof ApiGithubPushRoute
+  '/support': typeof SupportRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
   '/rota-takvim': typeof RotaTakvimRoute
-  '/api/github-push': typeof ApiGithubPushRoute
+  '/support': typeof SupportRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
   '/rota-takvim': typeof RotaTakvimRoute
-  '/api/github-push': typeof ApiGithubPushRoute
+  '/support': typeof SupportRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/privacy' | '/rota-takvim' | '/api/github-push'
+  fullPaths: '/' | '/privacy' | '/rota-takvim' | '/support'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/privacy' | '/rota-takvim' | '/api/github-push'
-  id: '__root__' | '/' | '/privacy' | '/rota-takvim' | '/api/github-push'
+  to: '/' | '/privacy' | '/rota-takvim' | '/support'
+  id: '__root__' | '/' | '/privacy' | '/rota-takvim' | '/support'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrivacyRoute: typeof PrivacyRoute
   RotaTakvimRoute: typeof RotaTakvimRoute
-  ApiGithubPushRoute: typeof ApiGithubPushRoute
+  SupportRoute: typeof SupportRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -92,11 +92,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RotaTakvimRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/github-push': {
-      id: '/api/github-push'
-      path: '/api/github-push'
-      fullPath: '/api/github-push'
-      preLoaderRoute: typeof ApiGithubPushRouteImport
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -106,7 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrivacyRoute: PrivacyRoute,
   RotaTakvimRoute: RotaTakvimRoute,
-  ApiGithubPushRoute: ApiGithubPushRoute,
+  SupportRoute: SupportRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
