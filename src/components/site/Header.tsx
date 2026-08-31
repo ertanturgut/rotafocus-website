@@ -3,7 +3,7 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { NAV_LINKS } from "./site-data";
-import logoMark from "@/assets/rotafocus-mark.png.asset.json";
+import logoMark from "@/assets/rotafocus-mark.png";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -35,7 +35,7 @@ export function Header() {
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-4 sm:px-8 lg:grid-cols-[auto_1fr_auto]">
         <a href="/#hero" className="flex min-w-0 items-center gap-2.5">
           <img
-            src={logoMark.url}
+            src={logoMark}
             alt="Rotafocus logosu"
             width={32}
             height={32}

@@ -1,6 +1,6 @@
 import { Instagram, Linkedin, Dribbble } from "lucide-react";
 import { EMAIL, NAV_LINKS, ROTA_LINKS, PHONE_DISPLAY, SOCIAL_LINKS, WHATSAPP_URL } from "./site-data";
-import logoMark from "@/assets/rotafocus-mark.png.asset.json";
+import logoMark from "@/assets/rotafocus-mark.png";
 
 const SOCIAL_ICONS = {
   Instagram,
@@ -16,7 +16,7 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2.5">
               <img
-                src={logoMark.url}
+                src={logoMark}
                 alt="Rotafocus logosu"
                 loading="lazy"
                 width={32}

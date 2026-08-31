@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SERVICES, EMAIL, PHONE_DISPLAY } from "@/components/site/site-data";
-import logoMark from "@/assets/rotafocus-mark.png.asset.json";
+import logoMark from "@/assets/rotafocus-mark.png";
 import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
 import { Services } from "@/components/site/Services";
@@ -45,8 +45,8 @@ export const Route = createFileRoute("/")({
               name: "Rotafocus",
               alternateName: "rotafocus",
               url: "/",
-              logo: logoMark.url,
-              image: logoMark.url,
+              logo: logoMark,
+              image: logoMark,
               description: DESCRIPTION,
               email: EMAIL,
               telephone: PHONE_DISPLAY,
@@ -74,7 +74,7 @@ export const Route = createFileRoute("/")({
               "@id": "/#service",
               name: "Rotafocus",
               url: "/",
-              image: logoMark.url,
+              image: logoMark,
               description: DESCRIPTION,
               parentOrganization: { "@id": "/#organization" },
               areaServed: "TR",
