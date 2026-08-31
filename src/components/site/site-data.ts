@@ -19,7 +19,7 @@ export const NAV_LINKS = [
 
 export const ROTA_LINKS = [
   { label: "Rota Takvim", href: "/rota-takvim" },
-  { label: "Destek", href: "/rota-takvim#destek" },
+  { label: "Destek", href: "/support" },
   { label: "Gizlilik Politikası", href: "/privacy" },
 ];
 
