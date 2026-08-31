@@ -63,6 +63,12 @@ export function Header() {
           >
             Rota Takvim
           </a>
+          <a
+            href="/support"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Destek
+          </a>
         </nav>
 
         <div className="flex items-center justify-end gap-2">
@@ -107,6 +113,13 @@ export function Header() {
               className="rounded-xl px-3 py-3 text-base text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             >
               Rota Takvim
+            </a>
+            <a
+              href="/support"
+              onClick={() => setOpen(false)}
+              className="rounded-xl px-3 py-3 text-base text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            >
+              Destek
             </a>
             <Button asChild variant="hero" size="xl" className="mt-3 w-full">
               <a href="/#iletisim" onClick={() => setOpen(false)}>
