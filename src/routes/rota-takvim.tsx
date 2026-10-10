@@ -88,8 +88,9 @@ function RotaTakvimPage() {
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
               <SectionHeading
-                eyebrow="Destek"
-                title="Rota Takvim ile ilgili soru, öneri veya teknik bir sorun yaşıyorsanız bizimle iletişime geçebilirsiniz."
+                align="left"
+                title="Yardım mı lazım?"
+                description="Rota Takvim ile ilgili soru, öneri veya teknik bir sorun yaşıyorsanız bizimle iletişime geçebilirsiniz."
               />
               <Reveal delay={120} className="space-y-4">
                 <div className="glass-card flex items-center gap-4 rounded-2xl p-5 hover:translate-y-0">
