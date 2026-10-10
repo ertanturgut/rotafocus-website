@@ -1,6 +1,6 @@
 import { Instagram, Linkedin, Dribbble } from "lucide-react";
 import { EMAIL, NAV_LINKS, ROTA_LINKS, PHONE_DISPLAY, SOCIAL_LINKS, WHATSAPP_URL } from "./site-data";
-import logoMark from "@/assets/rotafocus-mark.png";
+import logoMark from "@/assets/rotafocus-mark.svg";
 
 const SOCIAL_ICONS = {
   Instagram,
@@ -23,8 +23,8 @@ export function Footer() {
                 height={32}
                 className="h-7 w-7 object-contain"
               />
-              <span className="text-lg font-semibold tracking-tight lowercase">
-                rota<span className="text-primary">focus</span>
+              <span className="font-logo text-xl font-extrabold leading-none tracking-[-0.045em] lowercase">
+                rotafocus
               </span>
             </div>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">

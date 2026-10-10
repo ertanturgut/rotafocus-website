@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SERVICES, EMAIL, PHONE_DISPLAY } from "@/components/site/site-data";
-import logoMark from "@/assets/rotafocus-mark.png";
+import logoMark from "@/assets/rotafocus-logo.png";
 import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
 import { Services } from "@/components/site/Services";

@@ -3,7 +3,7 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { NAV_LINKS } from "./site-data";
-import logoMark from "@/assets/rotafocus-mark.png";
+import logoMark from "@/assets/rotafocus-mark.svg";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -41,8 +41,8 @@ export function Header() {
             height={32}
             className="h-7 w-7 shrink-0 object-contain"
           />
-          <span className="truncate text-lg font-semibold tracking-tight lowercase">
-            rota<span className="text-primary">focus</span>
+          <span className="truncate font-logo text-xl font-extrabold leading-none tracking-[-0.045em] lowercase">
+            rotafocus
           </span>
         </a>
 
