@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
-import { Menu, X, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NAV_LINKS } from "./site-data";
 import logoMark from "@/assets/rotafocus-mark.svg";
+
+const EXTRA_LINKS = [
+  { label: "Rota Takvim", href: "/rota-takvim" },
+  { label: "Destek", href: "/support" },
+];
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -23,71 +27,50 @@ export function Header() {
     };
   }, [open]);
 
+  const links = [...NAV_LINKS.filter((l) => l.href !== "/#hero"), ...EXTRA_LINKS];
+
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-        scrolled
-          ? "border-b border-border bg-background/70 backdrop-blur-xl"
-          : "border-b border-transparent",
+        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
+        scrolled || open
+          ? "border-b border-border bg-background/80 backdrop-blur-xl backdrop-saturate-150"
+          : "border-b border-transparent bg-background/0",
       )}
     >
-      <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-4 sm:px-8 lg:grid-cols-[auto_1fr_auto]">
-        <a href="/#hero" className="flex min-w-0 items-center gap-2.5">
-          <img
-            src={logoMark}
-            alt="Rotafocus logosu"
-            width={32}
-            height={32}
-            className="h-7 w-7 shrink-0 object-contain"
-          />
-          <span className="truncate font-logo text-xl font-extrabold leading-none tracking-[-0.045em] lowercase">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-6 px-5 sm:px-8">
+        <a href="/#hero" className="flex shrink-0 items-center gap-2" aria-label="rotafocus ana sayfa">
+          <img src={logoMark} alt="" width={24} height={24} className="size-6" />
+          <span className="font-logo text-[1.15rem] leading-none font-extrabold tracking-[-0.045em] lowercase">
             rotafocus
           </span>
         </a>
 
-        <nav className="hidden items-center justify-center gap-8 lg:flex">
-          {NAV_LINKS.map((link) => (
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Ana menü">
+          {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="text-[0.82rem] text-foreground/75 transition-colors hover:text-foreground"
             >
               {link.label}
             </a>
           ))}
-          <span className="size-1 rounded-full bg-border" aria-hidden="true" />
-          <a
-            href="/rota-takvim"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Rota Takvim
-          </a>
-          <a
-            href="/support"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Destek
-          </a>
         </nav>
 
-        <div className="flex items-center justify-end gap-2">
-          <Button
-            asChild
-            variant="hero"
-            size="xl"
-            className="hidden h-11 px-5 text-sm sm:inline-flex"
+        <div className="flex items-center gap-2">
+          <a
+            href="/#iletisim"
+            className="hidden h-8 items-center rounded-full bg-primary px-4 text-[0.82rem] font-semibold text-primary-foreground transition-colors hover:bg-primary-hover sm:inline-flex"
           >
-            <a href="/#iletisim">
-              Projenizi Konuşalım <ArrowRight className="size-4" />
-            </a>
-          </Button>
+            Teklif alın
+          </a>
           <button
             type="button"
             aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="grid size-11 shrink-0 place-items-center rounded-full border border-border text-foreground transition-colors hover:border-primary/50 lg:hidden"
+            className="-mr-2 grid size-11 place-items-center rounded-full text-foreground lg:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -95,39 +78,31 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-background/95 backdrop-blur-xl lg:hidden">
-          <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-4 sm:px-8">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-3 text-base text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              >
-                {link.label}
-              </a>
+        <nav
+          className="h-[calc(100svh-3.5rem)] overflow-y-auto bg-background px-5 pt-4 pb-10 sm:px-8 lg:hidden"
+          aria-label="Mobil menü"
+        >
+          <ul className="mx-auto max-w-6xl">
+            {links.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="block py-3 font-display text-3xl font-semibold tracking-tight"
+                >
+                  {link.label}
+                </a>
+              </li>
             ))}
-            <a
-              href="/rota-takvim"
-              onClick={() => setOpen(false)}
-              className="rounded-xl px-3 py-3 text-base text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-            >
-              Rota Takvim
-            </a>
-            <a
-              href="/support"
-              onClick={() => setOpen(false)}
-              className="rounded-xl px-3 py-3 text-base text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-            >
-              Destek
-            </a>
-            <Button asChild variant="hero" size="xl" className="mt-3 w-full">
-              <a href="/#iletisim" onClick={() => setOpen(false)}>
-                Projenizi Konuşalım <ArrowRight className="size-4" />
-              </a>
-            </Button>
-          </nav>
-        </div>
+          </ul>
+          <a
+            href="/#iletisim"
+            onClick={() => setOpen(false)}
+            className="mx-auto mt-8 flex h-12 max-w-6xl items-center justify-center rounded-full bg-primary font-semibold text-primary-foreground"
+          >
+            Teklif alın
+          </a>
+        </nav>
       )}
     </header>
   );

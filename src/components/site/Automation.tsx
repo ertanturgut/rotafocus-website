@@ -1,46 +1,103 @@
-import { Bell, Bot, Database, Users, Workflow, CheckCircle2 } from "lucide-react";
-import { Reveal } from "./Reveal";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 import { SectionHeading } from "./SectionHeading";
 
 const STEPS = [
-  { icon: Users, label: "Müşteri", detail: "Talep & ilk temas" },
-  { icon: Bot, label: "AI", detail: "Anlama & sınıflandırma" },
-  { icon: Workflow, label: "Otomasyon", detail: "Süreç tetikleme" },
-  { icon: Bell, label: "Bildirim", detail: "Anlık uyarı" },
-  { icon: Database, label: "CRM / WhatsApp / E-posta", detail: "Kayıt & iletişim" },
-  { icon: CheckCircle2, label: "Sonuç", detail: "Ölçülebilir çıktı" },
+  { label: "Müşteri yazar", detail: "WhatsApp, Instagram ya da web formundan gelen talep." },
+  { label: "Yapay zekâ anlar", detail: "Talebi okur, konusuna ve aciliyetine göre ayırır." },
+  { label: "Süreç başlar", detail: "Doğru iş akışı kendiliğinden tetiklenir." },
+  { label: "Ekip haberdar olur", detail: "İlgili kişiye anında bildirim düşer." },
+  { label: "Kayıt tutulur", detail: "CRM, WhatsApp ve e-postaya otomatik işlenir." },
+  { label: "Sonuç ölçülür", detail: "Ne kadar zaman kazandığınızı raporda görürsünüz." },
 ];
 
+const TRAVEL_MS = 2600;
+
 export function Automation() {
+  const ref = useRef<HTMLOListElement>(null);
+  const [run, setRun] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setRun(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setRun(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.45 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="relative overflow-hidden py-24 sm:py-32">
-      <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-25" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,transparent_25%,var(--background)_80%)]" />
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+    <section className="bg-night py-24 text-night-foreground sm:py-32">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="AI Otomasyon"
-          align="center"
-          title="İşletmenizi sadece dijitalleştirmeyin. Otomatikleştirin."
-          description="Tekrarlayan işlerinizi yapay zekâ ve otomasyonlarla sistemleştirin. Daha az manuel iş, daha fazla verimlilik."
+          tone="night"
+          title="İşletmenizi dijitalleştirmeyin. Otomatikleştirin."
+          description="Tekrarlayan işleri yapay zekâ ve otomasyonlarla sisteme bağlıyoruz. Bir müşteri mesajı, siz dokunmadan sonuca kadar ilerler."
         />
 
-        <ol className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {STEPS.map((step, i) => (
-            <Reveal as="li" key={step.label} delay={i * 80}>
-              <div className="glass-card relative flex h-full items-start gap-4 rounded-2xl p-6">
-                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/12 text-primary">
-                  <step.icon className="size-5" />
-                </span>
-                <div className="min-w-0">
-                  <p className="font-mono text-[0.7rem] text-muted-foreground">
-                    {String(i + 1).padStart(2, "0")}
-                  </p>
-                  <h3 className="mt-1 leading-snug font-semibold">{step.label}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{step.detail}</p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
+        <ol
+          ref={ref}
+          data-run={run}
+          className="relative mt-16 grid gap-9 sm:mt-24 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-14 lg:grid-cols-6 lg:gap-y-0"
+        >
+          {/* Track: vertical on small screens, horizontal on large. */}
+          <div
+            aria-hidden="true"
+            className="absolute top-2 bottom-2 left-[9px] w-px bg-night-muted/25 sm:hidden lg:block lg:top-[9px] lg:right-[8.33%] lg:bottom-auto lg:left-[8.33%] lg:h-px lg:w-auto"
+          >
+            <span
+              className={cn(
+                "absolute left-1/2 size-[18px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary shadow-[0_0_0_6px_rgb(255_90_54/0.18)] ease-in-out lg:top-1/2 lg:-translate-x-1/2",
+                run ? "top-full lg:left-full" : "top-0 lg:left-0",
+              )}
+              style={{
+                transitionProperty: "top, left",
+                transitionDuration: `${TRAVEL_MS}ms`,
+              }}
+            />
+          </div>
+
+          {STEPS.map((step, i) => {
+            const lightAt = (i / (STEPS.length - 1)) * TRAVEL_MS;
+            const last = i === STEPS.length - 1;
+            return (
+              <li key={step.label} className="relative pl-10 sm:pl-0 lg:text-center">
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "absolute top-[3px] left-[3px] size-3 rounded-full border transition-colors duration-500 sm:static sm:mb-5 sm:block lg:mx-auto lg:mt-[3px]",
+                    run
+                      ? "border-primary bg-primary"
+                      : "border-night-muted/50 bg-night",
+                  )}
+                  style={{ transitionDelay: run ? `${lightAt}ms` : "0ms" }}
+                />
+                <h3
+                  className={cn(
+                    "font-sans text-lg font-semibold transition-colors duration-500",
+                    last && run ? "text-primary" : "text-night-foreground",
+                  )}
+                  style={{ transitionDelay: last && run ? `${TRAVEL_MS}ms` : "0ms" }}
+                >
+                  {step.label}
+                </h3>
+                <p className="mt-1.5 text-[0.95rem] leading-relaxed text-night-muted">
+                  {step.detail}
+                </p>
+              </li>
+            );
+          })}
         </ol>
       </div>
     </section>

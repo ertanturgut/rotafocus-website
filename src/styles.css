@@ -5,8 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Rotafocus design system — premium dark, crimson accent.
- * All colors in oklch. Never hardcode colors in components.
+ * Rotafocus design system: light, calm, Apple-like rhythm.
+ * Brand: Gece #0B1626 · Turuncu #FF5A36 · Kağıt #F2F4EF.
+ * Never hardcode colors in components; use these tokens.
  */
 
 @theme inline {
@@ -46,54 +47,56 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-night: var(--night);
+  --color-night-foreground: var(--night-foreground);
+  --color-night-muted: var(--night-muted);
+  --color-paper: var(--paper);
+  --color-primary-hover: var(--primary-hover);
+  --font-sans: "Geist", -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", "Geist", ui-sans-serif, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
   --font-logo: "Bricolage Grotesque", "Sora", ui-sans-serif, sans-serif;
 }
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.13 0.004 285);
-  --foreground: oklch(0.99 0 0);
-  --surface: oklch(0.17 0.005 285);
-  --card: oklch(0.17 0.005 285);
-  --card-foreground: oklch(0.99 0 0);
-  --popover: oklch(0.16 0.005 285);
-  --popover-foreground: oklch(0.99 0 0);
-  --primary: oklch(0.58 0.23 27.5);
-  --primary-foreground: oklch(0.99 0 0);
-  --primary-glow: oklch(0.68 0.21 25);
-  --secondary: oklch(0.22 0.005 285);
-  --secondary-foreground: oklch(0.99 0 0);
-  --muted: oklch(0.22 0.005 285);
-  --muted-foreground: oklch(0.72 0.008 286);
-  --accent: oklch(0.24 0.02 20);
-  --accent-foreground: oklch(0.99 0 0);
-  --destructive: oklch(0.6 0.23 27);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.58 0.23 27.5);
-  --sidebar: oklch(0.15 0.004 285);
-  --sidebar-foreground: oklch(0.99 0 0);
-  --sidebar-primary: oklch(0.58 0.23 27.5);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.22 0.005 285);
-  --sidebar-accent-foreground: oklch(0.99 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.58 0.23 27.5);
+  --background: #ffffff;
+  --foreground: #0b1626;
+  --surface: #f2f4ef;
+  --paper: #f2f4ef;
+  --card: #ffffff;
+  --card-foreground: #0b1626;
+  --popover: #ffffff;
+  --popover-foreground: #0b1626;
+  --primary: #ff5a36;
+  --primary-hover: #f04a26;
+  --primary-foreground: #0b1626;
+  --primary-glow: #ff7a5c;
+  --secondary: #f2f4ef;
+  --secondary-foreground: #0b1626;
+  --muted: #f2f4ef;
+  --muted-foreground: #576172;
+  --accent: #e8ebe5;
+  --accent-foreground: #0b1626;
+  --destructive: #c4321c;
+  --destructive-foreground: #ffffff;
+  --border: #dfe3e8;
+  --input: #cfd5dd;
+  --ring: #2c4a72;
+  --night: #0b1626;
+  --night-foreground: #f2f4ef;
+  --night-muted: #a3b0c2;
+  --sidebar: #f2f4ef;
+  --sidebar-foreground: #0b1626;
+  --sidebar-primary: #ff5a36;
+  --sidebar-primary-foreground: #0b1626;
+  --sidebar-accent: #e8ebe5;
+  --sidebar-accent-foreground: #0b1626;
+  --sidebar-border: #dfe3e8;
+  --sidebar-ring: #2c4a72;
 
-  --gradient-primary: linear-gradient(135deg, var(--primary), var(--primary-glow));
-  --gradient-surface: linear-gradient(
-    160deg,
-    oklch(1 0 0 / 7%),
-    oklch(1 0 0 / 2%) 45%,
-    oklch(1 0 0 / 0%)
-  );
-  --shadow-glow: 0 0 60px -12px oklch(0.58 0.23 27.5 / 45%);
-  --shadow-elevated: 0 24px 60px -28px oklch(0 0 0 / 90%);
-  --transition-smooth: 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-smooth: 400ms var(--ease-out-soft);
 }
 
 .dark {
@@ -110,6 +113,18 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -124,69 +139,56 @@
   }
 }
 
+/* Quiet raised panel used by secondary pages. */
 @utility glass-card {
-  background-image: var(--gradient-surface);
-  background-color: oklch(1 0 0 / 2%);
-  backdrop-filter: blur(14px);
-  border: 1px solid var(--border);
-  transition:
-    transform var(--transition-smooth),
-    border-color var(--transition-smooth),
-    box-shadow var(--transition-smooth);
-
-  &:hover {
-    transform: translateY(-4px);
-    border-color: oklch(0.58 0.23 27.5 / 45%);
-    box-shadow: var(--shadow-elevated);
-  }
+  background-color: var(--paper);
+  border-radius: 1.5rem;
 }
 
+/* Kept for older markup; headlines stay a single solid color now. */
 @utility text-gradient {
-  background-image: linear-gradient(
-    120deg,
-    var(--foreground) 25%,
-    var(--primary-glow) 75%
-  );
-  background-clip: text;
-  color: transparent;
-}
-
-@utility glow-ring {
-  box-shadow: var(--shadow-glow);
+  color: var(--foreground);
 }
 
 @utility grid-backdrop {
-  background-image:
-    linear-gradient(to right, oklch(1 0 0 / 4%) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(1 0 0 / 4%) 1px, transparent 1px);
-  background-size: 64px 64px;
+  background-image: none;
 }
 
+/* Section entrances are intentionally static; only the hero and the
+   automation flow move. */
 @utility reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 1;
+}
 
-  &[data-visible="true"] {
+@keyframes rf-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
     opacity: 1;
     transform: none;
   }
 }
 
-@keyframes rf-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
+@utility rise {
+  animation: rf-rise 900ms var(--ease-out-soft) both;
+}
+
+@keyframes rf-dot-travel {
+  from {
+    left: 0%;
   }
-  50% {
-    transform: translate3d(0, -18px, 0);
+  to {
+    left: 100%;
   }
 }
 
-@utility float-slow {
-  animation: rf-float 9s ease-in-out infinite;
+@utility hide-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,26 +1,25 @@
-import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { PROCESS } from "./site-data";
 
 export function Process() {
   return (
-    <section className="py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading eyebrow="Süreç" title="Nasıl çalışıyoruz?" />
-        <ol className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <section className="bg-paper py-20 sm:py-28">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <SectionHeading
+          title="Dört adımda, net bir yol."
+          description="İlk görüşmeden ilk sonuca kadar her adımda ne olacağını bilirsiniz."
+        />
+        <ol className="mt-14 grid gap-3 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
           {PROCESS.map((step, i) => (
-            <Reveal as="li" key={step.number} delay={i * 80}>
-              <div className="relative border-t border-border pt-6">
-                <span className="absolute -top-px left-0 h-px w-12 bg-primary" />
-                <span className="font-mono text-sm text-primary">{step.number}</span>
-                <h3 className="mt-4 text-xl font-semibold tracking-tight">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {step.description}
-                </p>
-              </div>
-            </Reveal>
+            <li key={step.title} className="rounded-[1.5rem] bg-background p-7 sm:p-8">
+              <span className="block font-display text-6xl leading-none font-bold tracking-tight text-primary">
+                {i + 1}
+              </span>
+              <h3 className="mt-8 font-sans text-xl font-semibold tracking-tight">{step.title}</h3>
+              <p className="mt-2 text-base leading-relaxed text-muted-foreground">
+                {step.description}
+              </p>
+            </li>
           ))}
         </ol>
       </div>

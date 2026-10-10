@@ -1,43 +1,39 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { Reveal } from "./Reveal";
 
 interface Props {
+  /** Kept for compatibility; section names now live in the nav, not above headings. */
   eyebrow?: string;
   title: ReactNode;
   description?: string;
   className?: string;
   align?: "left" | "center";
+  tone?: "light" | "night";
 }
 
 export function SectionHeading({
-  eyebrow,
   title,
   description,
   className,
-  align = "left",
+  align = "center",
+  tone = "light",
 }: Props) {
   return (
-    <Reveal
-      className={cn(
-        "max-w-3xl",
-        align === "center" && "mx-auto text-center",
-        className,
-      )}
-    >
-      {eyebrow && (
-        <p className="mb-4 text-xs font-medium tracking-[0.2em] text-primary uppercase">
-          {eyebrow}
-        </p>
-      )}
-      <h2 className="text-3xl leading-tight font-semibold tracking-tight text-balance sm:text-4xl lg:text-5xl">
+    <div className={cn("max-w-3xl", align === "center" && "mx-auto text-center", className)}>
+      <h2 className="text-4xl leading-[1.05] font-bold tracking-[-0.03em] text-balance sm:text-5xl lg:text-6xl">
         {title}
       </h2>
       {description && (
-        <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
+        <p
+          className={cn(
+            "mt-5 text-lg leading-relaxed text-pretty sm:text-xl",
+            tone === "night" ? "text-night-muted" : "text-muted-foreground",
+            align === "center" && "mx-auto max-w-2xl",
+          )}
+        >
           {description}
         </p>
       )}
-    </Reveal>
+    </div>
   );
 }

@@ -77,37 +77,37 @@ export type Project = {
 export const PROJECTS: Project[] = [
   {
     title: "Kinetik Kampanya",
-    category: "AI Advertising",
+    category: "Yapay zekâ reklamı",
     description: "Yapay zekâ ile üretilen reklam görselleri ve kampanya konsepti.",
     image: work1,
   },
   {
     title: "Feed Sistemi",
-    category: "Social Media",
+    category: "Sosyal medya",
     description: "Aylık içerik planı, tasarım sistemi ve topluluk yönetimi.",
     image: work2,
   },
   {
     title: "Monokrom Kimlik",
-    category: "Brand Design",
+    category: "Marka tasarımı",
     description: "Marka kimliği, tipografi sistemi ve kurumsal uygulamalar.",
     image: work3,
   },
   {
     title: "Akış Motoru",
-    category: "AI Automation",
+    category: "AI otomasyon",
     description: "Talep toplama, yanıtlama ve CRM aktarımı için uçtan uca otomasyon.",
     image: work4,
   },
   {
     title: "Dönüşüm Odaklı Site",
-    category: "Web Design",
+    category: "Web tasarım",
     description: "Hızlı, mobil öncelikli ve dönüşüm odaklı kurumsal web deneyimi.",
     image: work5,
   },
   {
     title: "Performans Sprinti",
-    category: "Digital Campaign",
+    category: "Dijital kampanya",
     description: "Performans pazarlama kurgusu, kreatif testler ve raporlama.",
     image: work6,
   },

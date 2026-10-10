@@ -1,56 +1,80 @@
-import { ArrowUpRight } from "lucide-react";
-import { Reveal } from "./Reveal";
+import { useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
-import { PROJECTS, type Project } from "./site-data";
-
-function ProjectCard({ project }: { project: Project }) {
-  return (
-    <article className="group relative aspect-4/3 overflow-hidden rounded-3xl border border-border">
-      <img
-        src={project.image}
-        alt={`${project.title} — ${project.category}`}
-        loading="lazy"
-        width={1024}
-        height={768}
-        className="absolute inset-0 size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-95" />
-      <div className="absolute inset-x-0 bottom-0 p-6">
-        <p className="text-xs tracking-[0.18em] text-primary uppercase">
-          {project.category}
-        </p>
-        <h3 className="mt-2 text-xl font-semibold tracking-tight">{project.title}</h3>
-        <div className="grid grid-rows-[0fr] transition-all duration-500 group-hover:grid-rows-[1fr] motion-reduce:grid-rows-[1fr]">
-          <div className="overflow-hidden">
-            <p className="pt-2 text-sm leading-relaxed text-muted-foreground">
-              {project.description}
-            </p>
-            <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-foreground">
-              Projeyi İncele <ArrowUpRight className="size-4" />
-            </span>
-          </div>
-        </div>
-      </div>
-    </article>
-  );
-}
+import { PROJECTS } from "./site-data";
 
 export function Work() {
+  const track = useRef<HTMLUListElement>(null);
+
+  function scrollBy(direction: 1 | -1) {
+    const el = track.current;
+    if (!el) return;
+    const card = el.querySelector("li");
+    const step = card ? card.getBoundingClientRect().width + 16 : el.clientWidth * 0.8;
+    el.scrollBy({ left: step * direction, behavior: "smooth" });
+  }
+
   return (
-    <section id="calismalarimiz" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+    <section id="calismalarimiz" className="scroll-mt-14 bg-paper py-20 sm:py-28">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 sm:flex-row sm:items-end sm:justify-between sm:px-8">
         <SectionHeading
-          eyebrow="Çalışmalarımız"
-          title="Fikirleri dijital deneyimlere dönüştürüyoruz."
+          align="left"
+          title="Fikirleri işe yarayan işlere dönüştürüyoruz."
+          className="max-w-2xl"
         />
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {PROJECTS.map((project, i) => (
-            <Reveal key={project.title} delay={(i % 3) * 80}>
-              <ProjectCard project={project} />
-            </Reveal>
-          ))}
+        <div className="hidden gap-3 sm:flex">
+          <button
+            type="button"
+            onClick={() => scrollBy(-1)}
+            aria-label="Önceki çalışma"
+            className="grid size-11 place-items-center rounded-full bg-accent text-foreground transition-colors hover:bg-border"
+          >
+            <ChevronLeft className="size-5" />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollBy(1)}
+            aria-label="Sonraki çalışma"
+            className="grid size-11 place-items-center rounded-full bg-accent text-foreground transition-colors hover:bg-border"
+          >
+            <ChevronRight className="size-5" />
+          </button>
         </div>
       </div>
+
+      <ul
+        ref={track}
+        className="hide-scrollbar mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-5 pb-2 sm:px-[max(2rem,calc((100vw-72rem)/2+2rem))]"
+        aria-label="Çalışmalarımız"
+      >
+        {PROJECTS.map((project) => (
+          <li
+            key={project.title}
+            className="w-[82%] shrink-0 snap-start sm:w-[min(30rem,60vw)] sm:scroll-ml-8"
+          >
+            <figure>
+              <img
+                src={project.image}
+                alt={`${project.title}: ${project.description}`}
+                loading="lazy"
+                width={1024}
+                height={768}
+                className="aspect-[4/5] w-full rounded-[1.5rem] bg-night object-cover"
+              />
+              <figcaption className="mt-5 pr-4">
+                <p className="text-sm font-medium text-muted-foreground">{project.category}</p>
+                <p className="mt-1 font-display text-2xl font-semibold tracking-tight">
+                  {project.title}
+                </p>
+                <p className="mt-2 text-base leading-relaxed text-muted-foreground">
+                  {project.description}
+                </p>
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+        <li aria-hidden="true" className="w-1 shrink-0" />
+      </ul>
     </section>
   );
 }
