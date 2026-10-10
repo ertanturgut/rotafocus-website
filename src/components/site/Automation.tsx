@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "./SectionHeading";
 
@@ -16,6 +16,22 @@ const TRAVEL_MS = 2600;
 export function Automation() {
   const ref = useRef<HTMLOListElement>(null);
   const [run, setRun] = useState(false);
+  // Small screens: the vertical track must stop at the last step's node.
+  const [trackPx, setTrackPx] = useState<number | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const measure = () => {
+      const items = el.querySelectorAll<HTMLLIElement>(":scope > li");
+      const last = items[items.length - 1];
+      const first = items[0];
+      if (last && first) setTrackPx(last.offsetTop - first.offsetTop);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
@@ -54,7 +70,8 @@ export function Automation() {
           {/* Track: vertical on small screens, horizontal on large. */}
           <div
             aria-hidden="true"
-            className="absolute top-2 bottom-2 left-[9px] w-px bg-night-muted/25 sm:hidden lg:block lg:top-[9px] lg:right-[8.33%] lg:bottom-auto lg:left-[8.33%] lg:h-px lg:w-auto"
+            className="absolute top-[9px] left-[9px] h-[var(--track-h)] w-px bg-night-muted/25 sm:hidden lg:block lg:right-[8.33%] lg:left-[8.33%] lg:h-px lg:w-auto"
+            style={{ "--track-h": trackPx === null ? "0px" : `${trackPx}px` } as CSSProperties}
           >
             <span
               className={cn(

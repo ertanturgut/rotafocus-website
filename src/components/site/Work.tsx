@@ -44,13 +44,13 @@ export function Work() {
 
       <ul
         ref={track}
-        className="hide-scrollbar mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-5 pb-2 sm:px-[max(2rem,calc((100vw-72rem)/2+2rem))]"
+        className="hide-scrollbar mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth scroll-pl-5 px-5 pb-2 sm:px-[max(2rem,calc((100vw_-_72rem)/2_+_2rem))] sm:scroll-pl-[max(2rem,calc((100vw_-_72rem)/2_+_2rem))]"
         aria-label="Çalışmalarımız"
       >
         {PROJECTS.map((project) => (
           <li
             key={project.title}
-            className="w-[82%] shrink-0 snap-start sm:w-[min(30rem,60vw)] sm:scroll-ml-8"
+            className="w-[82%] shrink-0 snap-start sm:w-[min(30rem,60vw)]"
           >
             <figure>
               <img
